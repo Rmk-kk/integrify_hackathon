@@ -1,29 +1,27 @@
 import { Request, Response } from 'express';
-import Task from '../models/Task';
+import Column from '../models/Column';
 
-// POST /tasks/create
+// POST /columns/create
 
-export const createTask = async (req: Request, res: Response) => {
+export const createColumn = async (req: Request, res: Response) => {
   try {
     // get data from request body
-    const { title, assigned, description, priority } = req.body;
+    const { title, color } = req.body;
 
-    // assign data to task model
-    const task = new Task({
+    // assign data to column model
+    const column = new Column({
       title,
-      assigned,
-      description,
-      priority,
+      color,
     });
 
     // save to database
-    const newTask = await task.save();
+    const newColumn = await column.save();
 
     // send success response
     return res.status(200).send({
       success: true,
-      message: 'Task createed',
-      task: newTask,
+      message: 'Column createed',
+      column: newColumn,
     });
   } catch (error) {
     // handle error
@@ -34,15 +32,15 @@ export const createTask = async (req: Request, res: Response) => {
   }
 };
 
-// GET /tasks
+// GET /columns
 
-export const getAllTasks = async (req: Request, res: Response) => {
+export const getAllColumns = async (req: Request, res: Response) => {
   try {
-    // find all tasks
-    const tasks = await Task.find();
+    // find all columns
+    const columns = await Column.find();
 
     // send success response
-    res.status(200).send({ success: true, tasks });
+    res.status(200).send({ success: true, columns });
   } catch (error) {
     // handle error
     return res.status(500).send({
@@ -52,15 +50,15 @@ export const getAllTasks = async (req: Request, res: Response) => {
   }
 };
 
-// GET /tasks
+// GET /columns
 
-export const getTaskById = async (req: Request, res: Response) => {
+export const getColumnById = async (req: Request, res: Response) => {
   try {
-    // find task by id
-    const task = await Task.findById(req.params.taskId);
+    // find column by id
+    const column = await Column.findById(req.params.columnId);
 
     // send success response
-    res.status(200).send({ success: true, task });
+    res.status(200).send({ success: true, column });
   } catch (error) {
     // handle error
     return res.status(500).send({
@@ -70,30 +68,30 @@ export const getTaskById = async (req: Request, res: Response) => {
   }
 };
 
-// PUT /tasks/:taskId
+// PUT /column/:columnId
 
-export const updateTaskById = async (req: Request, res: Response) => {
+export const updateColumnById = async (req: Request, res: Response) => {
   try {
     // get data from request body
     const update = req.body;
 
-    // find task by id and update
-    const updatedTask = await Task.findByIdAndUpdate(
-      req.params.taskId,
+    // find column by id and update
+    const updatedColumn = await Column.findByIdAndUpdate(
+      req.params.columnId,
       update,
       { new: true }
     );
-    if (!updatedTask)
+    if (!updatedColumn)
       return res.status(404).send({
         success: false,
-        error: 'Task not found',
+        error: 'Column not found',
       });
 
     // send success response
     res.status(200).send({
       success: true,
-      message: 'Task successfully updated',
-      updatedTask,
+      message: 'Column successfully updated',
+      updatedColumn,
     });
   } catch (error) {
     // handle error
@@ -104,22 +102,22 @@ export const updateTaskById = async (req: Request, res: Response) => {
   }
 };
 
-// DELETE /tasks/:taskId
+// DELETE /columns/:columnId
 
-export const deleteTaskById = async (req: Request, res: Response) => {
+export const deleteColumnById = async (req: Request, res: Response) => {
   try {
-    // find task by id and delete
-    const deletedTask = await Task.findByIdAndDelete(req.params.taskId);
-    if (!deletedTask)
+    // find column by id and delete
+    const deletedColumn = await Column.findByIdAndDelete(req.params.columnId);
+    if (!deletedColumn)
       return res.status(404).send({
         success: false,
-        error: 'Task not found',
+        error: 'Column not found',
       });
 
     // send success response
     return res.status(200).send({
       success: true,
-      message: 'Task has been deleted',
+      message: 'Column has been deleted',
     });
   } catch (error) {
     // handle error

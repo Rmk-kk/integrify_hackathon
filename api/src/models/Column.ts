@@ -13,6 +13,7 @@ enum ColumnColors {
 export type ColumnDocument = Document & {
   title: string;
   color: ColumnColors;
+  taskIds: string[];
 };
 
 const columnSchema = new mongoose.Schema({
@@ -23,6 +24,10 @@ const columnSchema = new mongoose.Schema({
   },
   color: {
     type: String,
+  },
+  taskIds: {
+    type: Array,
+    default: [],
   },
 });
 

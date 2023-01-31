@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-// register user
+// create task
 router.post('/create', createTask);
 
 // get all tasks

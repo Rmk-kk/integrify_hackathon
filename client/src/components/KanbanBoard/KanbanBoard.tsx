@@ -24,8 +24,8 @@ interface DragDestinationResult {
 }
 const KanbanBoard = () => {
     const [createColumn, setCreateColumn] = useState(false);
-
     const [data, setData] = useState(fakeData);
+
     const allColumns = data.columns;
     const allTasks = data.tasks;
 
@@ -90,7 +90,6 @@ const KanbanBoard = () => {
                     ...finish,
                     taskIds: finishTaskIds
                 };
-
                 const newState = {
                     ...data,
                     columns: {

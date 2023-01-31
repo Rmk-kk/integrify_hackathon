@@ -1,8 +1,9 @@
 import '../kanban-modal.scss';
-import React, {useState} from 'react'
+import React, {FormEvent, useEffect, useState} from 'react'
 import * as ReactDOM from 'react-dom';
 import {Box, Button, TextField} from "@mui/material";
 import {ColumnColors} from "../../../utility/types";
+import fakeData from "../../../fakeData/fakeData";
 
 interface CreateTaskModalProps {
     createColumn: boolean,
@@ -10,19 +11,35 @@ interface CreateTaskModalProps {
 }
 const CreateTaskModal = (props:CreateTaskModalProps) => {
     const {createColumn, setCreateColumn} = props;
-    const [columnTitle, setColumnTitle] = useState("");
-    const [columnColor, setColumnColor] = useState<string>("");
+    const [columnTitle, setColumnTitle] = useState("Your title");
+    const [columnColor, setColumnColor] = useState('#2D9CDB');
 
     if(!createColumn ) return null
 
-    const handleCheckbox = () => {
-        console.log(123);
+
+
+    const onFormSubmit = (e:FormEvent) => {
+        e.preventDefault();
+        const newColumn = {
+            id: "",
+            title: columnTitle,
+            taskIds: [],
+            color: columnColor,
+        }
+        console.log(newColumn)
+        resetStates();
+    }
+
+    const resetStates = () => {
+        setColumnColor('#2D9CDB');
+        setColumnTitle("Your title");
+        setCreateColumn(false);
     }
 
     return ReactDOM.createPortal(
         <>
-            <div className='kanban-modal_overlay' onClick={() => setCreateColumn(false)}></div>
-            <div className='kanban-modal'>
+            <div className='kanban-modal_overlay' onClick={() => resetStates()}></div>
+            <div className='kanban-modal' onSubmit={(e)=>onFormSubmit(e)}>
                 <h1>Create Column</h1>
                 <Box component="form"
                      className='kanban-modal_form'
@@ -98,18 +115,19 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                             <label style={{backgroundColor:`${ColumnColors.Purple}`}} className="container " htmlFor='priority-checkbox_purple'></label>
                         </div>
                     </div>
+                    {columnTitle.length !== 0 &&
+                        <div className='kanban-modal_preview'>
+                            <h2 className='kanban-column_title'
+                                style={{backgroundColor: `${columnColor}`}}>
+                                {columnTitle}
+                            </h2>
+                        </div>
+                    }
+                    <div className='kanban-modal_buttons'>
+                        <Button onClick={() => resetStates()} variant="outlined">Close</Button>
+                        <Button variant="contained" type='submit'>Create</Button>
+                    </div>
                 </Box>
-                <div className='kanban-modal_preview'>
-                    <h2 className='kanban-column_title'
-                        style={{backgroundColor: `${columnColor}`}}>
-                        {columnTitle}
-                    </h2>
-                </div>
-                <div className='kanban-modal_buttons'>
-                    <Button onClick={() => setCreateColumn(false)} variant="outlined">Close</Button>
-                    <Button variant="contained">Create</Button>
-                </div>
-
             </div>
         </>,
         document.getElementById('modal')!

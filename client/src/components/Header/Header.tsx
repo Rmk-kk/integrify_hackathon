@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 import "./header.scss";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { logOut } from "../../redux/slices/userReducer";
@@ -38,5 +37,5 @@ const Header = () => {
     </div>
   );
 };
-
 export default Header;
+

@@ -1,30 +1,27 @@
 import express from 'express';
-import { createTask } from '../controllers/task.controller';
+import {
+  createTask,
+  getAllTasks,
+  getTaskById,
+  updateTaskById,
+  deleteTaskById,
+} from '../controllers/task.controller';
 
 const router = express.Router();
 
 // register user
 router.post('/create', createTask);
 
-// // login user
-// router.post('/login', loginUser);
+// get all tasks
+router.get('/', getAllTasks);
 
-// // check login
-// router.get('/check-login', checkUserLogin);
+// get task by id
+router.get('/:taskId', getTaskById);
 
-// // logout user
-// router.get('/logout', logoutUser);
+// update task by id
+router.put('/:taskId', updateTaskById);
 
-// // get all users
-// router.get('/', getAllUsers);
-
-// // get user by id
-// router.get('/:userId', getUserById);
-
-// // update user by id
-// router.put('/:userId', updateUserById);
-
-// // delete by id
-// router.delete('/:userId', deleteUserById);
+// delete task by id
+router.delete('/:taskId', deleteTaskById);
 
 export default router;

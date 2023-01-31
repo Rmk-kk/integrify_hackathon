@@ -39,6 +39,8 @@ const SignUp = ({ showSignIn, signUp }: SignUpProps) => {
     setConfirmPassword(event.target.value);
   };
 
+
+
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (password === confirmPassword) {
@@ -55,11 +57,30 @@ const SignUp = ({ showSignIn, signUp }: SignUpProps) => {
       setPasswordsMatch(false);
     }
   };
+
+  const keyPress = async (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if(e.keyCode === 13){
+      if (password === confirmPassword) {
+        const response = await axios.post(
+          "http://localhost:4000/api/v1/users/register",
+          { email, name, password }
+        );
+        console.log(response);
+        if (response.data.accessToken !== "") {
+          dispatch(logIn());
+          nav("/");
+        }
+      } else {
+        setPasswordsMatch(false);
+      }
+      }
+ }
   return (
     <form
       className="signup"
       style={{ display: signUp ? "flex" : "none" }}
       onSubmit={handleSubmit}
+      onKeyDown={keyPress}
     >
       <h1 className="signup__heading">SIGN UP</h1>
       <input
@@ -100,7 +121,7 @@ const SignUp = ({ showSignIn, signUp }: SignUpProps) => {
       >
         Passwords dont match
       </Typography>
-      <input type="submit" value={"SIGN UP"} className="signup__btn" />
+      <input type="submit" value={"SIGN UP"} className="signup__btn"/>
       <p className="already" onClick={showSignIn}>
         Already have an account?
       </p>

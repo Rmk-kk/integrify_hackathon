@@ -5,8 +5,6 @@ import Task from '../models/Task';
 
 export const createTask = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-
     // get data from request body
     const { title, assigned, description, priority } = req.body;
 
@@ -79,7 +77,7 @@ export const updateTaskById = async (req: Request, res: Response) => {
     // get data from request body
     const update = req.body;
 
-    // find user by id and update
+    // find task by id and update
     const updatedTask = await Task.findByIdAndUpdate(
       req.params.taskId,
       update,

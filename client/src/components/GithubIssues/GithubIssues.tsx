@@ -9,9 +9,11 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { addNewTask } from "../../redux/slices/taskReducer";
 import { taskPriority } from "../../utility/TaskPriorities";
 import { updateColumn } from "../../redux/slices/columnReducer";
+import {slackNotification} from "../../utility/slackNotification";
 
 export default function GithubIssues(): JSX.Element {
   const dispatch = useAppDispatch();
+  const link = useAppSelector(state => state.slack);
   const [rotate, setRotate] = useState(false);
   const tasks: Tasks = useAppSelector(function (state: RootState) {
     return state.task;
@@ -52,8 +54,13 @@ export default function GithubIssues(): JSX.Element {
     addedTasks.forEach(function (t: TaskData) {
       dispatch(addNewTask(t));
       dispatch(updateColumn({ columnId: "column-1", newTask: t }));
+      if(link && link.length > 3) {
+        slackNotification(t,link);
+      }
     });
-    setRotate(false)
+    setTimeout(() => {
+      setRotate(false)
+    }, 1000)
   }
 
   return (

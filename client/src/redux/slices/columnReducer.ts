@@ -69,11 +69,19 @@ const columnSlice = createSlice({
       },
         removeColumn: (state, action) => {
             return state.filter(column => column.id !== action.payload)
+        },
+        modifyColumn: (state, action) => {
+            return state.map(column => {
+                if(column.id === action.payload.id) {
+                    return {...column, color:action.payload.color, title: action.payload.title}
+                }
+                return column
+            })
         }
   }
 });
 
 const columnReducer = columnSlice.reducer;
 export default columnReducer;
-export const {updateColumn, updateColumnTaskOrder, createNewColumn, removeTaskFromColumn, removeColumn} = columnSlice.actions
+export const {modifyColumn, updateColumn, updateColumnTaskOrder, createNewColumn, removeTaskFromColumn, removeColumn} = columnSlice.actions
 

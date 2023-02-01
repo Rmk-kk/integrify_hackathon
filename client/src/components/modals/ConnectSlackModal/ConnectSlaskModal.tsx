@@ -40,7 +40,7 @@ const ConnectSlackModal = (props:ConnectSlackModalProps) => {
                      onSubmit={(e:FormEvent) => onFormSubmit(e)}
                      autoComplete="off"
                 >
-                    <TextField id="outlined-basic" onChange={(e) => setSlackLink(e.target.value)} label="Slack API URL" variant="outlined" defaultValue={slackLink}/>
+                    <TextField id="outlined-basic" type='password' onChange={(e) => setSlackLink(e.target.value)} label="Slack API URL" variant="outlined" defaultValue={slackLink}/>
 
                     <div className='kanban-modal_buttons'>
                         <Button onClick={() => setEditSlackLink(false)} variant="outlined">Close</Button>

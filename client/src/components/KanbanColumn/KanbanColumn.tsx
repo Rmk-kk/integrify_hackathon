@@ -10,6 +10,8 @@ import CreateTaskModal from "../modals/CreateTaskModal/CreateTaskModal";
 import {useAppDispatch} from "../../hooks/reduxHooks";
 import {removeColumn} from "../../redux/slices/columnReducer";
 import {removeColumnFromOrder} from "../../redux/slices/columnOrderReducer";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditColumnModal from "../modals/EditColumnModal/EditColumnModal";
 
 interface KanbanColumnProps {
     color: string,
@@ -20,6 +22,8 @@ interface KanbanColumnProps {
 }
 const KanbanColumn = (props:KanbanColumnProps) => {
     const [createTask, setCreateTask] = useState(false);
+    const [editColumn, setEditColumn] = useState(false);
+
     const {color, title, tasks, id, index} = props;
     const dispatch = useAppDispatch();
     const columnId = id;
@@ -42,6 +46,7 @@ const KanbanColumn = (props:KanbanColumnProps) => {
                             {...provided.dragHandleProps}
                             style={{backgroundColor: `${color}`}}>
                             {title}
+                            <MoreHorizIcon onClick={() => setEditColumn(true)} className='kanban-column_remove kanban-column_edit'/>
                             <RemoveIcon onClick={() => deleteColumn()} className='kanban-column_remove' fontSize='large'/>
                         </h2>
                         <Button variant="outlined" className='kanban-column_btn' onClick={() => setCreateTask(true)}>
@@ -63,6 +68,7 @@ const KanbanColumn = (props:KanbanColumnProps) => {
                     </div>
                 )}
             </Draggable>
+            <EditColumnModal editColumn={editColumn} setEditColumn={setEditColumn} color={color} title={title} id={id}/>
             <CreateTaskModal createTask={createTask} columnId={props.id} setCreateTask={setCreateTask}/>
         </>
     )

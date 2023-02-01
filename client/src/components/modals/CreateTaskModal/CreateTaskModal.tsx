@@ -57,7 +57,7 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
             }
             dispatch(addNewTask(newTask));
             dispatch(updateColumn({columnId,newTask}));
-            slackNotification(newTask.title)
+            slackNotification(newTask)
                 .catch(e => console.log(e));
             resetStates();
         }
@@ -133,7 +133,6 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                             onChange={(e) => setAssignedId(Number(e.target.value))}
                         >
                             {fakeUsers.map((item, index) => {
-                                console.log(item.id)
                                 return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
                             })}
 

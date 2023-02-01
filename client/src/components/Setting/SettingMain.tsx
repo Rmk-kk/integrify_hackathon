@@ -24,7 +24,7 @@ export default function SettingMain(): JSX.Element {
     <Card
       sx={{
         m: "1.5rem",
-        maxWidth: 900,
+        maxWidth: 700,
         display: "flex",
       }}
     >

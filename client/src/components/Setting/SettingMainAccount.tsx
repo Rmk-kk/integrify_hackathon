@@ -7,7 +7,7 @@ export default function SettingMainAccount(): JSX.Element {
   const [personData, setPersonData] = useState<TaskPersonData>({
     avatar: "",
     name: "",
-      id: 0,
+    id: 0,
   });
 
   function handleChange(
@@ -48,45 +48,25 @@ export default function SettingMainAccount(): JSX.Element {
           Account Settings
         </Typography>
       </Box>
-      <Box component="div" sx={{ display: "flex", gap: "1.3rem" }}>
-        <Box
-          component="div"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.3rem",
-            width: "50%",
-          }}
-        >
-          <TextField
-            label="Name"
-            name="name"
-            type="text"
-            value={personData.name}
-            onChange={handleChange}
-            required
-            helperText="Please fill your full name here."
-          />
-          <TextField
-            label="Avatar"
-            name="avatar"
-            type="text"
-            value={personData.avatar}
-            onChange={handleChange}
-            required
-            helperText="Please copy here your link into your avatar."
-          />
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.3rem",
-            width: "50%",
-          }}
-        >
-      </Box>
+
+      <TextField
+        label="Name"
+        name="name"
+        type="text"
+        value={personData.name}
+        onChange={handleChange}
+        required
+        helperText="Please fill your full name here."
+      />
+      <TextField
+        label="Avatar"
+        name="avatar"
+        type="text"
+        value={personData.avatar}
+        onChange={handleChange}
+        required
+        helperText="Please copy here your link into your avatar."
+      />
       <Box sx={{ height: "100%" }}></Box>
       <Box component="div" sx={{ display: "flex", gap: "1.3rem" }}>
         <Button variant="outlined" size="large" type="submit">
@@ -101,7 +81,6 @@ export default function SettingMainAccount(): JSX.Element {
           Cancel
         </Button>
       </Box>
-    </Box>
     </Box>
   );
 }

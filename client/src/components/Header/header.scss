@@ -55,5 +55,19 @@
         cursor: pointer;
       }
     }
+
+    &_git-icon {
+      fill: variables.$main-orange;
+      animation: rotateAnimation 1s linear;
+    }
+  }
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }

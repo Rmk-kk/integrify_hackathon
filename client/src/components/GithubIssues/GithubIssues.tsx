@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import SyncIcon from "@mui/icons-material/Sync";
 
 import { RootState } from "../../redux/store";
@@ -12,11 +12,13 @@ import { updateColumn } from "../../redux/slices/columnReducer";
 
 export default function GithubIssues(): JSX.Element {
   const dispatch = useAppDispatch();
+  const [rotate, setRotate] = useState(false);
   const tasks: Tasks = useAppSelector(function (state: RootState) {
     return state.task;
   });
 
   async function handleClick() {
+    setRotate(true);
     const githubIssuesUrl =
       "https://api.github.com/repos/CaH4o/Integrify-Finland-Hackathon-january-2023/issues";
     const issues: Issues = await useFetch<Issues>(githubIssuesUrl);
@@ -33,7 +35,7 @@ export default function GithubIssues(): JSX.Element {
       const task: TaskData = {
         assigned: user,
         description: i.body,
-        id: String(new Date()),
+        id: "task-" +i.id.toString(),
         priority: taskPriority.Medium,
         title: i.title,
       };
@@ -51,6 +53,7 @@ export default function GithubIssues(): JSX.Element {
       dispatch(addNewTask(t));
       dispatch(updateColumn({ columnId: "column-1", newTask: t }));
     });
+    setRotate(false)
   }
 
   return (
@@ -58,7 +61,7 @@ export default function GithubIssues(): JSX.Element {
       className="header-content_navbar-item header-content_navbar-btn"
       onClick={handleClick}
     >
-      <SyncIcon className='header-content_git-icon'/>
+      <SyncIcon className={`${rotate && 'header-content_git-icon'}`}/>
       <h4>Sync GitHub</h4>
     </button>
   );

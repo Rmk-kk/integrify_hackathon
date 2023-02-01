@@ -3,7 +3,7 @@ import React, { FormEvent, useState} from 'react'
 import * as ReactDOM from 'react-dom';
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {taskPriority} from "../../../utility/TaskPriorities";
-import {useAppDispatch} from "../../../hooks/reduxHooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHooks";
 import {addNewTask} from "../../../redux/slices/taskReducer";
 import {updateColumn} from "../../../redux/slices/columnReducer";
 import {TaskData} from "../../../utility/models";
@@ -18,20 +18,13 @@ interface CreateTaskModalProps {
 const CreateTaskModal = (props:CreateTaskModalProps) => {
     const {createTask, setCreateTask, columnId} = props;
     const dispatch = useAppDispatch();
+    const link = useAppSelector(state => state.slack);
     const [priorityType, setPriorityType] = useState(taskPriority.Low);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [assignedId, setAssignedId] = useState<number>(1);
 
     if(!createTask ) return null
-
-    console.log(columnId);
-    const updateDropDownMenu = (event:any) => {
-        console.log(event.target.value);
-        /*
-        const person = get data from all users, find person
-         */
-    }
     const handleCheckbox = (string:string) => {
       const task = taskPriority[string];
       setPriorityType(task);
@@ -57,8 +50,11 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
             }
             dispatch(addNewTask(newTask));
             dispatch(updateColumn({columnId,newTask}));
-            slackNotification(newTask)
-                .catch(e => console.log(e));
+            if(link && link.length > 1) {
+                console.log(link);
+                slackNotification(newTask, link)
+                    .catch(e => console.log(e));
+            }
             resetStates();
         }
     }

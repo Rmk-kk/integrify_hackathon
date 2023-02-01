@@ -2,8 +2,8 @@ import axios from "axios";
 import {TaskData} from "./models";
 
 
-export const slackNotification = async (data:TaskData) => {
-    const {title, description, priority, assigned} = data;
+export const slackNotification = async (data:TaskData, link:string) => {
+    const {title, priority, assigned} = data;
 
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed).toLocaleDateString();
@@ -23,7 +23,7 @@ export const slackNotification = async (data:TaskData) => {
                     "fields": [
                         {
                             "type": "mrkdwn",
-                            "text": `*Type:*\n${title}`
+                            "text": `*Title:*\n${title}`
                         },
                         {
                             "type": "mrkdwn",
@@ -40,10 +40,20 @@ export const slackNotification = async (data:TaskData) => {
                         }
                     ]
                 },
+                {
+                    "type": "section",
+                    "fields": [
+                        {
+                            "type": "mrkdwn",
+                            "text": `*Priority:*\n${priority.text}`
+                        }
+                    ]
+                },
             ]
 
         }
     );
-    const res = await axios.post('https://hooks.slack.com/services/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', message)
+    console.log(message);
+    const res = await axios.post(`${link}`, message)
     return res.data
 }

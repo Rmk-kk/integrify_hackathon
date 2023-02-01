@@ -1,0 +1,1 @@
+export const slackLink = 'https://hooks.slack.com/services/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';

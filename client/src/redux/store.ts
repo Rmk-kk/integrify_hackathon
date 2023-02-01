@@ -4,6 +4,7 @@ import columnReducer from "./slices/columnReducer";
 import taskReducer from "./slices/taskReducer";
 import userReducer from "./slices/userReducer";
 import columnOrderReducer from "./slices/columnOrderReducer";
+import SliceLinkReducer from "./slices/slackLinkReducer";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     column: columnReducer,
     task: taskReducer,
     order: columnOrderReducer,
+    slack: SliceLinkReducer,
   },
 });
 

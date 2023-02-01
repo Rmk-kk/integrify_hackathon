@@ -33,7 +33,7 @@ export default function GithubIssues(): JSX.Element {
       const task: TaskData = {
         assigned: user,
         description: i.body,
-        id: "task-" + i.id.toString(),
+        id: String(new Date()),
         priority: taskPriority.Medium,
         title: i.title,
       };
@@ -58,7 +58,7 @@ export default function GithubIssues(): JSX.Element {
       className="header-content_navbar-item header-content_navbar-btn"
       onClick={handleClick}
     >
-      <SyncIcon />
+      <SyncIcon className='header-content_git-icon'/>
       <h4>Sync GitHub</h4>
     </button>
   );

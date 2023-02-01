@@ -4,10 +4,11 @@ import {Outlet} from "react-router-dom";
 
 import { Box } from '@mui/material';
 import Auth from '../../pages/Auth/Auth';
+import {useAppSelector} from "../../hooks/reduxHooks";
 
 const AppContent = () => {
-    // const authenticated = useSelector((state: RootState) => state.user.authentication)
-    const authenticated = true;
+    const authenticated = useAppSelector(state => state.user.authentication)
+    // const authenticated = true;
     return(
             <>
                 {authenticated ? <Box>

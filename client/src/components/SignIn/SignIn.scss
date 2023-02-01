@@ -31,6 +31,7 @@
   
     .rememberMe {
       color: #999999;
+      cursor: pointer;
       align-self: center;
       position: relative;
       right: 12%;
@@ -49,11 +50,30 @@
       background-color: #97abf4;
       color: white;
       border-radius: 5px;
+      cursor: pointer;
+      transition: background-color .1s linear;
+
+      &:hover {
+        background-color: #4a6efa
+      }
+
+      &:active {
+        background-color: #1643f6
+      }
     }
   
     .forgot {
       margin-top: -10px;
-      color: #999999;
+      color: #646464;
+      cursor: pointer;
+      width: fit-content;
+      align-self: center;
+      transition: all .1s linear;
+
+      &:hover {
+        color: #999999;
+        text-decoration: underline;
+      }
     }
   
     .noAccount {
@@ -91,9 +111,10 @@
         border: 1px solid #999;
         border-radius: 5px;
         font-size: 200%;
+        transition: all .1s linear;
 
         &:hover {
-          color: #ccc;
+          color: #b871f1;
           padding: 10px;
           border: 1px solid #ccc;
           border-radius: 5px;

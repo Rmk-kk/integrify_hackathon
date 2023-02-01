@@ -37,11 +37,28 @@
       background-color: #97abf4;
       color: white;
       border-radius: 5px;
+      cursor: pointer;
+      transition: background-color .1s linear;
+
+      &:hover {
+        background-color: #4a6efa
+      }
+
+      &:active {
+        background-color: #1643f6
+      }
     }
   
     .already {
       margin-top: -10px;
       color: #999999;
+      cursor: pointer;
+      transition: all .2s linear;
+
+      &:hover {
+        color: #bebebe;
+        text-decoration: underline;
+      }
     }
   
     .or {

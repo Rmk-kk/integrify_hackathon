@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
-import React, { MouseEventHandler } from 'react';
+import React, { Box } from "@mui/material"
+import { MouseEventHandler } from "react"
+
 
 import './ForgotPassword.scss';
 
